@@ -1,5 +1,6 @@
 package com.datagrokr.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -8,22 +9,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Restaurant {
+public class Restaurant implements Serializable {
  
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     private String name;
-    private String mobileNo;
     private int noOfPeople;
-    private LocalDateTime bookingTime;
+    private String mobileNo;
+    private int bookingTime;
 
     public Restaurant() {
 
     }
 
-    public Restaurant(Long id, String name, String mobileNo, int noOfPeople, LocalDateTime bookingTime) {
+    public Restaurant(Long id, String name, String mobileNo, int noOfPeople, int bookingTime) {
         this.id = id;
         this.name = name;
         this.mobileNo = mobileNo;
@@ -55,10 +58,10 @@ public class Restaurant {
     public void setNoOfPeople(int noOfPeople) {
         this.noOfPeople = noOfPeople;
     }
-    public LocalDateTime getBookingTime() {
+    public int getBookingTime() {
         return bookingTime;
     }
-    public void setBookingTime(LocalDateTime bookingTime) {
+    public void setBookingTime(int bookingTime) {
         this.bookingTime = bookingTime;
     }
 

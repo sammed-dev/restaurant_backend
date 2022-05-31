@@ -68,7 +68,19 @@
             <artifactId>postgresql</artifactId>
             <version>42.3.3</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <properties>
         <jersey.version>3.0.3</jersey.version>
