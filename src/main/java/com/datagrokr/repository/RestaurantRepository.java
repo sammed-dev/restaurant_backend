@@ -5,7 +5,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import com.datagrokr.entity.HelperEntity;
 import com.datagrokr.entity.Restaurant;
+
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 public class RestaurantRepository {
 
@@ -24,8 +28,18 @@ public class RestaurantRepository {
         return restaurant;
     }
 
-    public Restaurant updateReservation(Restaurant restaurant){
-        return null;
+    public Response updateReservation(Restaurant restaurant){
+        Restaurant toBeUpdated = entityManager.find(Restaurant.class, restaurant.getId());
+        entityManager.getTransaction().begin();
+        // if(restaurant.getNoOfPeople() == 0 || restaurant.getBookingTime() == 0)
+        //     return Response.status(400).entity(new HelperEntity(400, "invalid details")).build();
+        toBeUpdated.setNoOfPeople(restaurant.getNoOfPeople());
+        toBeUpdated.setBookingTime(restaurant.getBookingTime());
+        toBeUpdated.setName(restaurant.getName());
+
+        entityManager.persist(toBeUpdated);
+        entityManager.getTransaction().commit();
+        return Response.status(Status.OK).entity(toBeUpdated).build();
     }
 
     public void deleteReservation(Long id){

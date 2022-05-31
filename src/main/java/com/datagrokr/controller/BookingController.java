@@ -7,6 +7,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -31,6 +32,13 @@ public class BookingController {
     public Response bookTable(Restaurant restaurant){
         return bookingService.bookTable(restaurant);
     } 
+
+    @PUT
+    @Path("/update/{id}")
+    public Response updateBooking(@PathParam("id") Long id, Restaurant restaurant){
+        restaurant.setId(id);
+        return bookingService.updateReservation(restaurant);
+    }
 
     @DELETE
     @Path("/delete/{id}")
