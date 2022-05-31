@@ -14,7 +14,6 @@ import jakarta.ws.rs.core.Response;
 @Path("restaurant")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-
 public class BookingController {
     
     private BookingService bookingService = new BookingService();
@@ -30,6 +29,5 @@ public class BookingController {
     public Response bookTable(Restaurant restaurant){
         return bookingService.bookTable(restaurant);
     } 
-
 
 }

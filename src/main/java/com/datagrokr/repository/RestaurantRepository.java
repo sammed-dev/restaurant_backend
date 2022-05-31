@@ -3,6 +3,7 @@ package com.datagrokr.repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import com.datagrokr.entity.Restaurant;
 
@@ -21,6 +22,10 @@ public class RestaurantRepository {
         entityManager.persist(restaurant);
         entityManager.getTransaction().commit();
         return restaurant;
+    }
+
+    public Restaurant updateReservation(Restaurant restaurant){
+        return null;
     }
     
 }
