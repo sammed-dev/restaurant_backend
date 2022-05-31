@@ -23,4 +23,9 @@ public class BookingService {
         return Response.status(Status.OK).entity(restaurant).build();
     }
 
+    public Response removeReservation(Long id){
+        restaurantRepository.deleteReservation(id);
+        return Response.status(Status.OK).entity("reservation deleted").build();
+    }
+
 }

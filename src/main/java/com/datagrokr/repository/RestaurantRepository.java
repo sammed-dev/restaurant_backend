@@ -27,5 +27,12 @@ public class RestaurantRepository {
     public Restaurant updateReservation(Restaurant restaurant){
         return null;
     }
+
+    public void deleteReservation(Long id){
+        entityManager.getTransaction().begin();
+        Query query =  entityManager.createQuery("DELETE FROM Restaurant WHERE id="+id);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
+    }
     
 }
