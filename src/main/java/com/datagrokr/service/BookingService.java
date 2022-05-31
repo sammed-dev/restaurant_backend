@@ -1,5 +1,6 @@
 package com.datagrokr.service;
 
+import com.datagrokr.entity.HelperEntity;
 import com.datagrokr.entity.Restaurant;
 import com.datagrokr.repository.RestaurantRepository;
 
@@ -19,6 +20,15 @@ public class BookingService {
     }
 
     public Response bookTable(Restaurant restaurant){
+
+        if(restaurantRepository.count().equals("10"))
+            return Response.serverError().entity(new HelperEntity(400, "All tables are booked")).build();
+        else if(restaurant.getNoOfPeople() == 2 && restaurantRepository.twoPersonsGroup().equals("5"))
+            return Response.serverError().entity("All tables with 2 people capacity are filled").build();
+        else if(restaurant.getNoOfPeople() == 4 && restaurantRepository.fourPersonsGroup().equals("5")){
+            System.out.println("4 people booking");
+            return Response.serverError().entity("All tables with 4 people capacity are filled").build();
+        }
         restaurantRepository.addReservation(restaurant);
         return Response.status(Status.OK).entity(restaurant).build();
     }
