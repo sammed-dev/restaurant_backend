@@ -35,7 +35,6 @@ public class RestaurantRepository {
             return Response.status(400).entity(new HelperEntity(400, "invalid details")).build();
         toBeUpdated.setNoOfPeople(restaurant.getNoOfPeople());
         toBeUpdated.setBookingTime(restaurant.getBookingTime());
-        toBeUpdated.setName(restaurant.getName());
 
         entityManager.persist(toBeUpdated);
         entityManager.getTransaction().commit();
@@ -62,6 +61,14 @@ public class RestaurantRepository {
     public String fourPersonsGroup(){
         Query query = entityManager.createQuery("SELECT count(r) FROM Restaurant r WHERE noOfPeople=4");
         return query.getSingleResult().toString();
+    }
+
+    public void deleteByPhoneNumber(String mobNo){
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createNativeQuery("DELETE FROM Restaurant WHERE CAST( mobileno as varchar) =?");
+        query.setParameter(1, mobNo);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
     }
 
 }

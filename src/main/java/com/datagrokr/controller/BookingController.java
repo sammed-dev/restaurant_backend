@@ -46,4 +46,10 @@ public class BookingController {
         return bookingService.removeReservation(id);
     }
 
+    @DELETE
+    @Path("/delete/mobile/{mobileNo}")
+    public Response deleteByMobileNo(@PathParam("mobileNo") String mobNo){
+        return bookingService.deleteByMobileNo(mobNo);
+    }
+
 }

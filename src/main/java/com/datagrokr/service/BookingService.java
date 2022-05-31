@@ -24,10 +24,10 @@ public class BookingService {
         if(restaurantRepository.count().equals("10"))
             return Response.serverError().entity(new HelperEntity(400, "All tables are booked")).build();
         else if(restaurant.getNoOfPeople() == 2 && restaurantRepository.twoPersonsGroup().equals("5"))
-            return Response.serverError().entity("All tables with 2 people capacity are filled").build();
+            return Response.serverError().entity(new HelperEntity(400,"All tables with 2 people capacity are filled")).build();
         else if(restaurant.getNoOfPeople() == 4 && restaurantRepository.fourPersonsGroup().equals("5")){
             System.out.println("4 people booking");
-            return Response.serverError().entity("All tables with 4 people capacity are filled").build();
+            return Response.serverError().entity(new HelperEntity(400,"All tables with 4 people capacity are filled")).build();
         }
         restaurantRepository.addReservation(restaurant);
         return Response.status(Status.OK).entity(restaurant).build();
@@ -39,6 +39,11 @@ public class BookingService {
 
     public Response removeReservation(Long id){
         restaurantRepository.deleteReservation(id);
+        return Response.status(Status.OK).entity("reservation deleted").build();
+    }
+
+    public Response deleteByMobileNo(String mobNo){
+        restaurantRepository.deleteByPhoneNumber(mobNo);
         return Response.status(Status.OK).entity("reservation deleted").build();
     }
 
