@@ -5,7 +5,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.datagrokr.entity.HelperEntity;
 import com.datagrokr.entity.Restaurant;
 
 import jakarta.ws.rs.core.Response;
