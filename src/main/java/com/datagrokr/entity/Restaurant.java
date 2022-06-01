@@ -20,13 +20,13 @@ public class Restaurant implements Serializable {
     private String name;
     private int noOfPeople;
     private String mobileNo;
-    private int bookingTime;
+    private LocalDateTime bookingTime;
 
     public Restaurant() {
 
     }
 
-    public Restaurant(Long id, String name, String mobileNo, int noOfPeople, int bookingTime) {
+    public Restaurant(Long id, String name, String mobileNo, int noOfPeople, LocalDateTime bookingTime) {
         this.id = id;
         this.name = name;
         this.mobileNo = mobileNo;
@@ -58,10 +58,10 @@ public class Restaurant implements Serializable {
     public void setNoOfPeople(int noOfPeople) {
         this.noOfPeople = noOfPeople;
     }
-    public int getBookingTime() {
+    public LocalDateTime getBookingTime() {
         return bookingTime;
     }
-    public void setBookingTime(int bookingTime) {
+    public void setBookingTime(LocalDateTime bookingTime) {
         this.bookingTime = bookingTime;
     }
 

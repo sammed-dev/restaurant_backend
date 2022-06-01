@@ -1,5 +1,8 @@
 package com.datagrokr.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import com.datagrokr.entity.HelperEntity;
 import com.datagrokr.entity.Restaurant;
 import com.datagrokr.repository.RestaurantRepository;
@@ -21,19 +24,37 @@ public class BookingService {
 
     public Response bookTable(Restaurant restaurant){
 
+        if(LocalDateTime.now().getHour() >= 20){
+            return Response.serverError().entity(new HelperEntity(400, "Booking is closed")).build();
+        }
+
         if(restaurantRepository.count().equals("10"))
             return Response.serverError().entity(new HelperEntity(400, "All tables are booked")).build();
         else if(restaurant.getNoOfPeople() == 2 && restaurantRepository.twoPersonsGroup().equals("5"))
             return Response.serverError().entity(new HelperEntity(400,"All tables with 2 people capacity are filled")).build();
-        else if(restaurant.getNoOfPeople() == 4 && restaurantRepository.fourPersonsGroup().equals("5")){
-            System.out.println("4 people booking");
+        else if(restaurant.getNoOfPeople() == 4 && restaurantRepository.fourPersonsGroup().equals("5"))
             return Response.serverError().entity(new HelperEntity(400,"All tables with 4 people capacity are filled")).build();
-        }
+        else if(!restaurant.getBookingTime().toLocalDate().isEqual(LocalDate.now()))
+            return Response.serverError().entity(new HelperEntity(500, "Booking allowed for curr day only")).build();
         restaurantRepository.addReservation(restaurant);
         return Response.status(Status.OK).entity(restaurant).build();
     }
 
     public Response updateReservation(Restaurant restaurant){
+        if(LocalDateTime.now().getHour() >= 20){
+            return Response.serverError().entity(new HelperEntity(400, "Booking is closed")).build();
+        }
+        else if(restaurant.getNoOfPeople() == 0)
+            return Response.serverError().entity(new HelperEntity(400, "at least 1 person is needed")).build();
+        else if(restaurant.getBookingTime() == null)
+            return Response.serverError().entity(new HelperEntity(400, "Invalid Time")).build();    
+        else if(restaurant.getNoOfPeople() == 2 && restaurantRepository.twoPersonsGroup().equals("5"))
+            return Response.serverError().entity(new HelperEntity(400,"All tables with 2 people capacity are filled")).build();
+        else if(restaurant.getNoOfPeople() == 4 && restaurantRepository.fourPersonsGroup().equals("5"))
+            return Response.serverError().entity(new HelperEntity(400,"All tables with 4 people capacity are filled")).build();
+        else if(!restaurant.getBookingTime().toLocalDate().isEqual(LocalDate.now()))
+            return Response.serverError().entity(new HelperEntity(500, "Booking allowed for curr day only")).build();
+        
         return restaurantRepository.updateReservation(restaurant);
     }
 

@@ -31,8 +31,6 @@ public class RestaurantRepository {
     public Response updateReservation(Restaurant restaurant){
         Restaurant toBeUpdated = entityManager.find(Restaurant.class, restaurant.getId());
         entityManager.getTransaction().begin();
-        if(restaurant.getNoOfPeople() == 0 || restaurant.getBookingTime() == 0)
-            return Response.status(400).entity(new HelperEntity(400, "invalid details")).build();
         toBeUpdated.setNoOfPeople(restaurant.getNoOfPeople());
         toBeUpdated.setBookingTime(restaurant.getBookingTime());
 
