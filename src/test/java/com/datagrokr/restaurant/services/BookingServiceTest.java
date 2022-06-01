@@ -66,4 +66,10 @@ public class BookingServiceTest extends JerseyTest {
         assertEquals(Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @Test
+    public void findReservationById(){
+        Response response = target("/restaurant/"+1).request().get();
+        assertEquals(Status.OK.getStatusCode(), response.getStatus());
+    }
+
 }

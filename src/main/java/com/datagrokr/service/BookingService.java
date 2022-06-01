@@ -69,4 +69,9 @@ public class BookingService {
         return Response.status(Status.OK).entity("reservation deleted").build();
     }
 
+    public Response findReservationById(Long id){
+        Restaurant result = restaurantRepository.findById(id);
+        return Response.status(Status.OK).entity(result).build();
+    }
+
 }

@@ -68,4 +68,8 @@ public class RestaurantRepository {
         entityManager.getTransaction().commit();
     }
 
+    public Restaurant findById(Long id){
+        return entityManager.find(Restaurant.class, id);
+    }
+
 }

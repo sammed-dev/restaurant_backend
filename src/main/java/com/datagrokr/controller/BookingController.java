@@ -26,6 +26,12 @@ public class BookingController {
     public String greetUser(){
         return bookingService.greetUser();
     }
+
+    @GET
+    @Path("/{id}")
+    public Response findReservation(@PathParam("id") Long id){
+        return bookingService.findReservationById(id);
+    }
     
     @POST
     @Path("/book")
