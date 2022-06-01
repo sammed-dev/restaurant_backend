@@ -25,8 +25,9 @@ public class RestaurantRepositoryTest {
 
     @Test
     public void addReservationTest(){
-        Restaurant restaurant = new Restaurant(21l, "sams", "1111122222", 2, LocalDateTime.of(2022, 6, 1, 18, 00, 00, 00));
+        Restaurant restaurant = new Restaurant("sams", "1111122222", 2, LocalDateTime.of(2022, 6, 1, 18, 00, 00, 00));
         Restaurant response =  restaurantRepository.addReservation(restaurant);
         assertEquals(restaurant, response);
     }
 }
+    

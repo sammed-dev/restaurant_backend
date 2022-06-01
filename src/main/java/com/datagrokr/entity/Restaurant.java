@@ -34,6 +34,13 @@ public class Restaurant implements Serializable {
         this.bookingTime = bookingTime;
     }
 
+    public Restaurant(String name, String mobileNo, int noOfPeople, LocalDateTime bookingTime) {
+        this.name = name;
+        this.mobileNo = mobileNo;
+        this.noOfPeople = noOfPeople;
+        this.bookingTime = bookingTime;
+    }
+
     public Long getId() {
         return id;
     }
