@@ -2,6 +2,7 @@ package com.datagrokr.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import com.datagrokr.entity.HelperEntity;
 import com.datagrokr.entity.Restaurant;
@@ -34,8 +35,8 @@ public class BookingService {
             return Response.serverError().entity(new HelperEntity(400,"All tables with 2 people capacity are filled")).build();
         else if(restaurant.getNoOfPeople() == 4 && restaurantRepository.fourPersonsGroup().equals("5"))
             return Response.serverError().entity(new HelperEntity(400,"All tables with 4 people capacity are filled")).build();
-        else if(!restaurant.getBookingTime().toLocalDate().isEqual(LocalDate.now()))
-            return Response.serverError().entity(new HelperEntity(500, "Booking allowed for curr day only")).build();
+        else if(!restaurant.getBookingTime().toLocalDate().isEqual(LocalDate.now()) || restaurant.getBookingTime().toLocalTime().isBefore(LocalTime.of(17, 0)))
+            return Response.serverError().entity(new HelperEntity(500, "Booking allowed for curr day only and after 5PM")).build();
         restaurantRepository.addReservation(restaurant);
         return Response.status(Status.OK).entity(restaurant).build();
     }
