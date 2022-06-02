@@ -37,19 +37,36 @@ public class BookingServiceTest extends JerseyTest {
 
    @Test
    public void addReservation(){
-        Restaurant restaurant = new Restaurant(21l, "sams", "1111122222", 2, LocalDateTime.of(2022, 6, 1, 18, 00, 00, 00));
+        Restaurant restaurant = new Restaurant("sams", "1111122222", 2, LocalDateTime.of(2022, 6, 2, 18, 00, 00, 00));
         Response response = target("/restaurant/book").request(MediaType.APPLICATION_JSON).post(Entity.entity(restaurant, MediaType.APPLICATION_JSON));
-        assertEquals(500, response.getStatus());
+        assertEquals(200, response.getStatus());
         assertNotNull(response.getEntity());
+        Restaurant restaurant1 = new Restaurant("sams", "2222233333", 2, LocalDateTime.of(2022, 6, 3, 18, 00, 00, 00));
+        Response response1 = target("/restaurant/book").request(MediaType.APPLICATION_JSON).post(Entity.entity(restaurant1, MediaType.APPLICATION_JSON));
+        assertEquals(500, response1.getStatus());
+        
    }
 
    @Test
    public void updateReservation(){
-        Restaurant toBeUpdated = new Restaurant();
-        toBeUpdated.setNoOfPeople(2);
-        toBeUpdated.setBookingTime(LocalDateTime.of(2022, 6, 1, 18, 00, 00, 00));
-        Response response = target("/restaurant/update/"+1).request(MediaType.APPLICATION_JSON).put(Entity.entity(toBeUpdated, MediaType.APPLICATION_JSON));
+        Restaurant restaurant = new Restaurant("sams", "1111122222", 0, LocalDateTime.of(2022, 6, 2, 18, 00, 00, 00));
+        Response response = target("/restaurant/update/"+1).request(MediaType.APPLICATION_JSON).put(Entity.entity(restaurant, MediaType.APPLICATION_JSON));
         assertEquals(500, response.getStatus());
+
+        Restaurant restaurant1 = new Restaurant("sams", "1111122222", 2, null);
+        Response response1 = target("/restaurant/update/"+1).request(MediaType.APPLICATION_JSON).put(Entity.entity(restaurant1, MediaType.APPLICATION_JSON));
+        assertEquals(500, response1.getStatus());
+
+        Restaurant restaurant2 = new Restaurant("sams", "1111122222", 4, null);
+        Response response2 = target("/restaurant/update/"+1).request(MediaType.APPLICATION_JSON).put(Entity.entity(restaurant2, MediaType.APPLICATION_JSON));
+        assertEquals(500, response2.getStatus());
+
+        // Restaurant restaurant2 = new Restaurant();
+        // restaurant2.setNoOfPeople(2);
+        // restaurant2.setBookingTime(LocalDateTime.of(2022, 6, 2, 18, 00, 00, 00));
+        // Response response2 = target("/restaurant/update/"+1).request(MediaType.APPLICATION_JSON).put(Entity.entity(restaurant2, MediaType.APPLICATION_JSON));
+        // assertEquals(200, response2.getStatus());
+
     }
 
 
