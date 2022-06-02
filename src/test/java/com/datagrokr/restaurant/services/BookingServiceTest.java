@@ -55,6 +55,7 @@ public class BookingServiceTest extends JerseyTest {
 
    @Test
    public void updateReservation(){
+       //update reservation failures:
         Restaurant restaurant = new Restaurant("sams", "1111122222", 0, LocalDateTime.of(2022, 6, 2, 18, 00, 00, 00));
         Response response = target("/restaurant/update/"+1).request(MediaType.APPLICATION_JSON).put(Entity.entity(restaurant, MediaType.APPLICATION_JSON));
         assertEquals(500, response.getStatus());
@@ -67,11 +68,12 @@ public class BookingServiceTest extends JerseyTest {
         Response response2 = target("/restaurant/update/"+1).request(MediaType.APPLICATION_JSON).put(Entity.entity(restaurant2, MediaType.APPLICATION_JSON));
         assertEquals(500, response2.getStatus());
 
-        // Restaurant restaurant2 = new Restaurant();
-        // restaurant2.setNoOfPeople(2);
-        // restaurant2.setBookingTime(LocalDateTime.of(2022, 6, 2, 18, 00, 00, 00));
-        // Response response2 = target("/restaurant/update/"+1).request(MediaType.APPLICATION_JSON).put(Entity.entity(restaurant2, MediaType.APPLICATION_JSON));
-        // assertEquals(200, response2.getStatus());
+        //update reservation success:
+        Restaurant restaurant3 = new Restaurant("sams", "9192939495", 4, LocalDateTime.of(2022, 6, 2, 18, 00, 00, 00));
+        restaurant3.setNoOfPeople(2);
+        restaurant3.setBookingTime(LocalDateTime.of(2022, 6, 2, 18, 00, 00, 00));
+        Response response3 = target("/restaurant/update/"+165).request(MediaType.APPLICATION_JSON).put(Entity.entity(restaurant3, MediaType.APPLICATION_JSON));
+        assertEquals(200, response3.getStatus());
 
     }
 
