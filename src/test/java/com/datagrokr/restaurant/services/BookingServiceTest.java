@@ -41,9 +41,15 @@ public class BookingServiceTest extends JerseyTest {
         Response response = target("/restaurant/book").request(MediaType.APPLICATION_JSON).post(Entity.entity(restaurant, MediaType.APPLICATION_JSON));
         assertEquals(200, response.getStatus());
         assertNotNull(response.getEntity());
-        Restaurant restaurant1 = new Restaurant("sams", "2222233333", 2, LocalDateTime.of(2022, 6, 3, 18, 00, 00, 00));
+
+        Restaurant restaurant1 = new Restaurant("sams", "4444455555", 4, LocalDateTime.of(2022, 6, 2, 18, 00, 00, 00));
         Response response1 = target("/restaurant/book").request(MediaType.APPLICATION_JSON).post(Entity.entity(restaurant1, MediaType.APPLICATION_JSON));
-        assertEquals(500, response1.getStatus());
+        assertEquals(200, response1.getStatus());
+        assertNotNull(response1.getEntity());
+
+        Restaurant restaurant2 = new Restaurant("sams", "2222233333", 2, LocalDateTime.of(2022, 6, 3, 18, 00, 00, 00));
+        Response response2 = target("/restaurant/book").request(MediaType.APPLICATION_JSON).post(Entity.entity(restaurant2, MediaType.APPLICATION_JSON));
+        assertEquals(500, response2.getStatus());
         
    }
 
