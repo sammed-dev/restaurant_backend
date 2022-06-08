@@ -3,6 +3,7 @@ package com.datagrokr.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import com.datagrokr.entity.Restaurant;
 import com.datagrokr.repository.RestaurantRepository;
@@ -19,7 +20,11 @@ public class BookingService {
     }
 
     public String greetUser(){
-        return "Welcome to Domino's";
+        return "Welcome to tasty delight";
+    }
+    
+    public List<Restaurant> findAllReservations(){
+        return restaurantRepository.allReservations();
     }
 
     public Response bookTable(Restaurant restaurant){

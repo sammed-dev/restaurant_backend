@@ -1,5 +1,7 @@
 package com.datagrokr.controller;
 
+import java.util.List;
+
 import com.datagrokr.entity.Restaurant;
 import com.datagrokr.service.BookingService;
 
@@ -27,6 +29,12 @@ public class BookingController {
         return bookingService.greetUser();
     }
 
+    @GET
+    @Path("/all")
+    public List<Restaurant> findAllReservation(){
+        return bookingService.findAllReservations();
+    }
+    
     @GET
     @Path("/{id}")
     public Response findReservation(@PathParam("id") Long id){

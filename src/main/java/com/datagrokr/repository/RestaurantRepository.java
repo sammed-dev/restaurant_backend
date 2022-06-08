@@ -1,5 +1,9 @@
 package com.datagrokr.repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,9 +19,29 @@ public class RestaurantRepository {
     private final EntityManager entityManager;
     private final EntityManagerFactory emf;
 
+    Map<String, String> env = System.getenv();
+    Map<String, Object> configOverrides = new HashMap<String, Object>();
+
+    
+
+
     public RestaurantRepository(){
+        for(String envName : env.keySet()){
+            if(envName.contains("USER_NAME")){
+                configOverrides.put("javax.persistence.jdbc.user", env.get(envName));
+            }
+        }
+
+
         emf = Persistence.createEntityManagerFactory("restaurant_pu");
         entityManager = emf.createEntityManager();
+    }
+
+    public List<Restaurant> allReservations(){
+        entityManager.getTransaction().begin();
+        List<Restaurant> reservations = (List<Restaurant>) entityManager.createNativeQuery("SELECT * FROM Restaurant", Restaurant.class).getResultList();
+        entityManager.getTransaction().commit();
+        return reservations;
     }
 
     public Restaurant addReservation(Restaurant restaurant){
